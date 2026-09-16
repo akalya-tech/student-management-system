@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "Student Management System API",
+    "description": "CRUD API tests for the Student Management System (SOP Section 10).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "student_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Create Student (valid)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Akalya Arthanari\",\n  \"email\": \"akalya@example.com\",\n  \"department\": \"AIML\",\n  \"year\": 2,\n  \"phone\": \"9876543210\"\n}"
+        },
+        "url": "{{base_url}}/students/"
+      }
+    },
+    {
+      "name": "Create Student (missing name - should fail)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"\",\n  \"email\": \"noname@example.com\",\n  \"department\": \"CSE\",\n  \"year\": 1,\n  \"phone\": \"9876500000\"\n}"
+        },
+        "url": "{{base_url}}/students/"
+      }
+    },
+    {
+      "name": "Create Student (duplicate email - should fail)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Duplicate Test\",\n  \"email\": \"akalya@example.com\",\n  \"department\": \"CSE\",\n  \"year\": 1,\n  \"phone\": \"9876500001\"\n}"
+        },
+        "url": "{{base_url}}/students/"
+      }
+    },
+    {
+      "name": "Create Student (invalid phone - should fail)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Bad Phone\",\n  \"email\": \"badphone@example.com\",\n  \"department\": \"CSE\",\n  \"year\": 1,\n  \"phone\": \"123\"\n}"
+        },
+        "url": "{{base_url}}/students/"
+      }
+    },
+    {
+      "name": "Read All Students",
+      "request": { "method": "GET", "url": "{{base_url}}/students/" }
+    },
+    {
+      "name": "Read Single Student",
+      "request": { "method": "GET", "url": "{{base_url}}/students/{{student_id}}/" }
+    },
+    {
+      "name": "Read Student (invalid id - should 404)",
+      "request": { "method": "GET", "url": "{{base_url}}/students/99999/" }
+    },
+    {
+      "name": "Update Student (valid)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"year\": 3\n}" },
+        "url": "{{base_url}}/students/{{student_id}}/"
+      }
+    },
+    {
+      "name": "Update Student (invalid id - should 404)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"year\": 3\n}" },
+        "url": "{{base_url}}/students/99999/"
+      }
+    },
+    {
+      "name": "Delete Student (valid)",
+      "request": { "method": "DELETE", "url": "{{base_url}}/students/{{student_id}}/" }
+    },
+    {
+      "name": "Delete Student (invalid id - should 404)",
+      "request": { "method": "DELETE", "url": "{{base_url}}/students/99999/" }
+    }
+  ]
+}
