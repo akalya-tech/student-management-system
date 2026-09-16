@@ -3,10 +3,9 @@
 // relative URL so the API is always on the same origin — no CORS involved.
 // If the page is opened some other way, fall back to the local Django server.
 const API_BASE =
-  window.location.protocol.startsWith("http") && window.location.port === "8000"
-    ? "/api/students/"
-    : "http://127.0.0.1:8000/api/students/";
-
+    window.location.protocol.startsWith("http") && window.location.port === "8000"
+        ? "/api/students/"
+        : "https://student-management-system-f1dw.onrender.com/api/students/";
 // ---- Element references ----
 const form = document.getElementById("student-form");
 const idField = document.getElementById("student-id");
